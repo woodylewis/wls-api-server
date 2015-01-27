@@ -6,7 +6,7 @@ var cors = require('cors');
 app.use(cors());
 var mongoose = require('mongoose');
 //---- Replace with real credentials -------
-//mongoose.connect('mongodb://<dbuser>:<dbpassword>@mongodb_instance');
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@mongodb_instance');
 var Stock = require('./app/models/stock');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,8 +39,10 @@ router.route('/stocks')
 		});
 })
 .post(function(req, res, next) {
+	console.log('BODY', req.body);
 	var stock = new Stock();
 	stock.name = req.body.name;
+	stock.ticker = req.body.ticker;
 
 	stock.save(function(err) {
 		if(err)
@@ -64,6 +66,7 @@ router.route('/stocks/:stock_id')
 			res.send(err);
 
 		stock.name = req.body.name;
+		stock.ticker = req.body.ticker;
 
 		stock.save(function(err) {
 			if(err)
