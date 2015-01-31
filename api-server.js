@@ -6,7 +6,10 @@ var cors = require('cors');
 app.use(cors());
 var mongoose = require('mongoose');
 //---- Replace with real credentials -------
-mongoose.connect('mongodb://<dbuser>:<dbpassword>@mongodb_instance');
+//mongoose.connect('mongodb://<dbuser>:<dbpassword>@mongodb_instance');
+//---- Local dev instance
+mongoose.connect('mongodb://localhost/api');
+
 var Stock = require('./app/models/stock');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,10 +42,14 @@ router.route('/stocks')
 		});
 })
 .post(function(req, res, next) {
-	console.log('BODY', req.body);
 	var stock = new Stock();
 	stock.name = req.body.name;
 	stock.ticker = req.body.ticker;
+	stock.year1 = req.body.year1;
+	stock.year2 = req.body.year2;
+	stock.year3 = req.body.year3;
+	stock.year4 = req.body.year4;
+	stock.year5 = req.body.year5;
 
 	stock.save(function(err) {
 		if(err)
@@ -67,6 +74,11 @@ router.route('/stocks/:stock_id')
 
 		stock.name = req.body.name;
 		stock.ticker = req.body.ticker;
+		stock.year1 = req.body.year1;
+		stock.year2 = req.body.year2;
+		stock.year3 = req.body.year3;
+		stock.year4 = req.body.year4;
+		stock.year5 = req.body.year5;
 
 		stock.save(function(err) {
 			if(err)
