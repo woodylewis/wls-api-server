@@ -43,13 +43,14 @@ router.route('/stocks')
 })
 .post(function(req, res, next) {
 	var stock = new Stock();
-	stock.name = req.body.name;
-	stock.ticker = req.body.ticker;
-	stock.year1 = req.body.year1;
-	stock.year2 = req.body.year2;
-	stock.year3 = req.body.year3;
-	stock.year4 = req.body.year4;
-	stock.year5 = req.body.year5;
+console.log('req', req);
+	stock.name = req.body.data.name;
+	stock.ticker = req.body.data.ticker;
+	stock.year1 = req.body.data.year1;
+	stock.year2 = req.body.data.year2;
+	stock.year3 = req.body.data.year3;
+	stock.year4 = req.body.data.year4;
+	stock.year5 = req.body.data.year5;
 
 	stock.save(function(err) {
 		if(err)
@@ -72,13 +73,13 @@ router.route('/stocks/:stock_id')
 		if(err)
 			res.send(err);
 
-		stock.name = req.body.name;
-		stock.ticker = req.body.ticker;
-		stock.year1 = req.body.year1;
-		stock.year2 = req.body.year2;
-		stock.year3 = req.body.year3;
-		stock.year4 = req.body.year4;
-		stock.year5 = req.body.year5;
+		stock.name = req.body.data.name;
+		stock.ticker = req.body.data.ticker;
+		stock.year1 = req.body.data.year1;
+		stock.year2 = req.body.data.year2;
+		stock.year3 = req.body.data.year3;
+		stock.year4 = req.body.data.year4;
+		stock.year5 = req.body.data.year5;
 
 		stock.save(function(err) {
 			if(err)
