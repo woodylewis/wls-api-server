@@ -2,6 +2,7 @@ var express	= require('express');
 var app	= express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var seeder = require('./app/seeder');
 
 app.use(cors());
 var mongoose = require('mongoose');
@@ -28,6 +29,7 @@ router.use(function(req, res, next) {
 //----- TEST ROUTE ------------
 router.get('/', function(req, res, next){
 	res.json({ message: 'TEST RESPONSE'});
+	console.log('TEST RESPONSE');
 });
 
 //----- GET AND POST ROUTE ----------
@@ -36,8 +38,12 @@ router.route('/stocks')
 	Stock.find().
 		  sort('name').
 		  exec( function(err, stocks){	
-		if(err)
+		if(err) {
 			res.send(err);
+		}
+		if(stocks.length === 0) {
+			seeder.init();
+		}
 		res.json(stocks);
 		});
 })
